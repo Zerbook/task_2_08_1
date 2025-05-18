@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { store } from '../store';
 import styles from './FieldLayout.module.css';
 
-const FieldLayout = ({ onCellClick }) => {
-	const [, setState] = useState(store.getState());
-
-	useEffect(() => {
-		const unsubscribe = store.subscribe(() => {
-			setState(store.getState());
-		});
-		return () => unsubscribe();
-	}, []);
-
-	const { field, isGameEnded, isDraw } = store.getState();
-
+const FieldLayout = ({ onCellClick, field, isGameEnded, isDraw }) => {
 	return (
 		<div className={styles.field}>
 			{Array.from({ length: 3 }).map((_, rowIndex) => (
@@ -45,6 +33,9 @@ const FieldLayout = ({ onCellClick }) => {
 
 FieldLayout.propTypes = {
 	onCellClick: PropTypes.func.isRequired,
+	field: PropTypes.arrayOf(PropTypes.string).isRequired,
+	isGameEnded: PropTypes.bool.isRequired,
+	isDraw: PropTypes.bool.isRequired,
 };
 
 export default FieldLayout;

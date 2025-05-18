@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { store } from '../store';
 import styles from './InformationLayout.module.css';
 
-const InformationLayout = () => {
-	const [, setState] = useState(store.getState());
-
-	useEffect(() => {
-		const unsubscribe = store.subscribe(() => {
-			setState(store.getState());
-		});
-		return () => unsubscribe();
-	}, []);
-
-	const { currentPlayer, isGameEnded, isDraw } = store.getState();
-
-	let status;
-	if (isDraw) {
-		status = 'Ничья';
-	} else if (isGameEnded) {
-		status = `Победа: ${currentPlayer}`;
-	} else {
-		status = `Ходит: ${currentPlayer}`;
-	}
-
+const InformationLayout = ({ status }) => {
 	return (
 		<div className={styles.information}>
 			<h2 className={styles.title}>{status}</h2>
@@ -31,6 +10,8 @@ const InformationLayout = () => {
 	);
 };
 
-InformationLayout.propTypes = {};
+InformationLayout.propTypes = {
+	status: PropTypes.string.isRequired,
+};
 
 export default InformationLayout;

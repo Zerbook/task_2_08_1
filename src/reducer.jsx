@@ -22,12 +22,12 @@ const reducer = (state = initialState, action) => {
 		case 'SET_GAME_ENDED':
 			return {
 				...state,
-				isGameEnded: action.payload.isGameEnded,
+				isGameEnded: true,
 			};
 		case 'SET_DRAW':
 			return {
 				...state,
-				isDraw: action.payload.isDraw,
+				isDraw: true,
 			};
 		case 'RESTART_GAME':
 			return initialState;
